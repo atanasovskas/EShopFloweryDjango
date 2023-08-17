@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Login</title>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <link href="path/to/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,500,0,200" />
+    <link href='https://fonts.googleapis.com/css?family=Varela Round' rel='stylesheet'>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,600,0,0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+
+        body {
+            display: block;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+
+        .login-form {
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+         .btn-pink {
+            background-color: #B61536;
+            color: white;
+            border-color:  #B61536;
+            padding-left: 20px;
+            padding-right: 20px;
+
+        }
+
+        .btn-pink:hover {
+            background-color: #76081F;
+            color: #ffffff;
+        }
+        .former
+        {
+            width: 100%;
+            justify-items: center;
+            justify-content: center;
+        }
+
+        </style>
+</head>
+<body>
+<nav class="navbar  " style="display: flex; align-items: center;">
+    <div class="container">
+        <a href="{% url 'index' %}" style="text-decoration: none"><h1 class="navbar-brand mb-0 h1"
+                                                                      style=";font-size: 30px;font-family: Varela Round">
+            Flowery<span style="color: #B61536; font-size: 70px">.</span></h1></a>
+
+        <div class="d-flex text-align ">
+                   <span class="navigation">
+                       <a href="{% url 'customer_login' %}"
+                          style="display: inline-block;color: black; vertical-align: middle;"><span
+                               style="font-size: 30px;display: inline-block; vertical-align: middle;"
+                               class="material-symbols-outlined">person</span></a>
+                   </span>
+            <a href="{% url 'view_cart' %}" style="color: black"><span class="material-symbols-outlined navigation"
+                                                                          style="font-size: 30px; vertical-align: middle;">shopping_cart</span></a>
+            <a href="{% url 'favorite' %}" style="color:black;"> <span class="material-symbols-outlined navigation"
+                                                                       style="font-size: 30px; vertical-align: middle;">favorite</span></a>
+        </div>
+    </div>
+    </div>
+</nav>
+
+<div class=" container login-form position-absolute top-50 start-50 translate-middle">
+    {% if user.is_authenticated %}
+        <h5>Welcome, {{ user.get_full_name }}! Your username is {{ user.username }}.</h5>
+        <form method="post" action="{% url 'customer_logout' %}">
+            {% csrf_token %}
+            <button class="btn btn-danger" type="submit">Logout</button>
+        </form>
+    {% else %}
+        <h2 class="text-center" style="padding-bottom: 10px">Login</h2>
+
+        <form method="POST" class="former">
+            {% csrf_token %}
+            {{ form.username.label_tag }}
+
+            {{ form.username }}
+
+            {{ form.password.label_tag }}
+
+            {{ form.password }}
+            <button class="btn btn-pink btn-block mt-3" type="submit">Login</button>
+        </form>
+        <p class="text-center mt-3">Don't have an account? <a href="{% url 'customer_registration' %}"
+                                                              style="color: darkred">Register</a></p>
+    {% endif %}
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
